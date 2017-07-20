@@ -7,7 +7,6 @@ import android.support.v4.util.ArrayMap;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.lang.reflect.Type;
 
 /**
  * Created by zhouquan on 17/7/19.
@@ -32,7 +31,6 @@ public class AnonymousProxy<T> {
         if (mProxy == null && !mIsTryCreated) {
             mProxy = generateDefaultViewer(mClazz);
         }
-
         return mProxy;
     }
 
@@ -53,7 +51,7 @@ public class AnonymousProxy<T> {
         return inst;
     }
 
-    private T generateDefaultViewer(Class clazz) {
+    private T generateDefaultViewer(final Class clazz) {
         if (clazz == null) {
             return null;
         }
@@ -67,19 +65,21 @@ public class AnonymousProxy<T> {
                         return method.invoke(this, args);
                     }
 
-                    Type returnType = method.getGenericReturnType();
+                    return JDKInvoker.get().invokeMethod(method, clazz, proxy, args);
 
-                    if (returnType.equals(int.class) || returnType.equals(float.class)
-                            || returnType.equals(short.class) || returnType.equals(long.class)
-                            || returnType.equals(byte.class) || returnType.equals(double.class)) {
-                        return 0;
-                    } else if (returnType.equals(boolean.class)) {
-                        return false;
-                    } else if (returnType.equals(char.class)) {
-                        return '0';
-                    }
-
-                    return null;
+//                    Type returnType = method.getGenericReturnType();
+//
+//                    if (returnType.equals(int.class) || returnType.equals(float.class)
+//                            || returnType.equals(short.class) || returnType.equals(long.class)
+//                            || returnType.equals(byte.class) || returnType.equals(double.class)) {
+//                        return 0;
+//                    } else if (returnType.equals(boolean.class)) {
+//                        return false;
+//                    } else if (returnType.equals(char.class)) {
+//                        return '0';
+//                    }
+//
+//                    return null;
                 }
             });
             mProxyMap.put(clazz, viewer);
