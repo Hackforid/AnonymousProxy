@@ -36,8 +36,9 @@ public class AnonymousProxy<T> {
         return mProxy;
     }
 
-    public void set(T object) {
+    public AnonymousProxy<T> set(T object) {
         mObject = object;
+        return this;
     }
 
     public void clear() {
@@ -53,14 +54,15 @@ public class AnonymousProxy<T> {
         return inst;
     }
 
+    @SuppressWarnings("unchecked")
     private T generateDefaultViewer(Class clazz) {
         if (clazz == null) {
             return null;
         }
 
-        Object viewer = mProxyMap.get(clazz);
-        if (viewer == null) {
-            viewer = Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, new InvocationHandler() {
+        Object fake = mProxyMap.get(clazz);
+        if (fake == null) {
+            fake = Proxy.newProxyInstance(clazz.getClassLoader(), new Class<?>[]{clazz}, new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                     if (method.getDeclaringClass() == Object.class) {
@@ -82,9 +84,9 @@ public class AnonymousProxy<T> {
                     return null;
                 }
             });
-            mProxyMap.put(clazz, viewer);
+            mProxyMap.put(clazz, fake);
         }
 
-        return (T) viewer;
+        return (T) fake;
     }
 }
