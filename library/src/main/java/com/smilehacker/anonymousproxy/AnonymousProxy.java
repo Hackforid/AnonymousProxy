@@ -31,6 +31,7 @@ public class AnonymousProxy<T> {
 
         if (mProxy == null && !mIsTryCreated) {
             mProxy = generateDefaultViewer(mClazz);
+            mIsTryCreated = true;
         }
 
         return mProxy;
