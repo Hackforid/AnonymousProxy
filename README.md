@@ -18,8 +18,8 @@ interface View {
 class Presenter {
     void callView() {
     	if (view != null) {
-    		view.foo()
-		}
+    	    view.foo()
+	}
     }
 }
 
@@ -95,13 +95,13 @@ class Application {
 
 ```groovy
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
-	}
+    repositories {
+	...
+	maven { url 'https://jitpack.io' }
+    }
 }
 dependencies {
-	compile 'com.github.Hackforid:AnonymousProxy:0.1.1'
+    compile 'com.github.Hackforid:AnonymousProxy:0.1.1'
 }
 ```
 
