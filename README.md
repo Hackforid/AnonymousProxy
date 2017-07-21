@@ -1,6 +1,6 @@
 # AnonymousProxy
 
-Never NPE check, Never null interface.
+Never NPE, Never null check.
 
 
 
@@ -88,6 +88,7 @@ class Application {
    }
 }
 ```
+
 
 
 
