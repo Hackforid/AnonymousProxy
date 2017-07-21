@@ -23,6 +23,10 @@ public class AnonymousProxy<T> {
     private T mObject;
     private Class<T> mClazz;
 
+    /**
+     * get proxy object
+     * @return
+     */
     @Nullable
     public T get() {
         if (mObject != null) {
@@ -37,23 +41,32 @@ public class AnonymousProxy<T> {
         return mProxy;
     }
 
+    /**
+     * set proxy object
+     * @param object
+     * @return
+     */
     public AnonymousProxy<T> set(T object) {
         mObject = object;
         return this;
     }
 
-    public void clear() {
-        mObject = null;
+    /**
+     * Is proxy object has actual object
+     * @return
+     */
+    public boolean isPresent() {
+        return mObject != null;
     }
 
-    private AnonymousProxy(Class<T> clazz) {
+    public static void clear() {
+        mProxyMap.clear();
+    }
+
+    public AnonymousProxy(Class<T> clazz) {
         mClazz = clazz;
     }
 
-    public static <T> AnonymousProxy<T> create(Class<T> clazz) {
-        AnonymousProxy<T> inst = new AnonymousProxy<>(clazz);
-        return inst;
-    }
 
     @SuppressWarnings("unchecked")
     private T generateDefaultViewer(Class clazz) {
