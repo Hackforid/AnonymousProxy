@@ -2,7 +2,7 @@
 
 Never NPE, Never null check.
 
-
+[![](https://jitpack.io/v/Hackforid/AnonymousProxy.svg)](https://jitpack.io/#Hackforid/AnonymousProxy)
 
 ## Why
 
@@ -90,6 +90,20 @@ class Application {
 ```
 
 
+
+## Usage
+
+```groovy
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+dependencies {
+	compile 'com.github.Hackforid:AnonymousProxy:0.1.0'
+}
+```
 
 
 
